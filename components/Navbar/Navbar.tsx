@@ -1,0 +1,143 @@
+"use client";
+import React, { useState } from "react";
+import { useTheme } from "next-themes";
+import { FaMoon } from "react-icons/fa6";
+import { FaSun } from "react-icons/fa6";
+import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
+import { FaSignInAlt } from "react-icons/fa";
+import { Link as ScrollLink } from "react-scroll";
+import LoginModal from "@/app/components/LoginModal";
+
+const Navbar = () => {
+  const { theme, setTheme } = useTheme();
+  const [mounted] = useState(() => typeof window !== "undefined");
+  if (!mounted) return null;
+
+  return (
+    <div className="fixed top-0 left-0 w-full h-16 z-50 flex items-center justify-center bg-[var(--secondary)] dark:bg-[var(--background)] backdrop-blur text-[var(--background)] dark:text-[var(--foreground)]">
+      <div className="max-w-6xl w-full px-6 flex items-center justify-between">
+        {/* Brand */}
+        <ScrollLink
+          to="home"
+          smooth={true}
+          className="text-2xl font-extrabold tracking-tight relative group cursor-pointer"
+        >
+          Axon
+          <span className="text-gray-400">.io</span>
+          <span
+            className="absolute left-0 -bottom-1 h-[2px] w-full
+                bg-[var(--secondary)] dark:bg-[var(--primary)]
+                scale-x-0 origin-left transition-transform duration-300
+                group-hover:scale-x-100"
+          ></span>
+        </ScrollLink>
+
+        {/* Nav Links */}
+        <nav className="hidden md:flex">
+          <ul className="flex items-center gap-12 text-sm font-medium">
+            {["PROJECTS", "SERVICES", "ABOUT", "CONTACT"].map((item) => (
+              <li key={item} className="relative group">
+                {/* Normal Nav Link */}
+                <ScrollLink
+                  to={item.toLowerCase()}
+                  smooth={true}
+                  duration={800}
+                  offset={-80}
+                  className="relative cursor-pointer text-[var(--background)] dark:text-[var(--foreground)] transition"
+                >
+                  {item}
+
+                  {/* underline */}
+                  <span className="absolute left-0 -bottom-1 h-[2px] w-full bg-[var(--secondary)] dark:bg-[var(--primary)] scale-x-0 origin-left transition-transform duration-300 group-hover:scale-x-100" />
+                </ScrollLink>
+
+                {/* ✅ Hover Dropdown Only for Services */}
+                {item === "SERVICES" && (
+                  <div className="absolute top-full left-0 mt-4 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
+                    <div className="rounded-xl border border-white/10 bg-[var(--background)]/95 backdrop-blur-xl shadow-lg overflow-hidden">
+                      <a
+                        href="#web"
+                        className="block px-4 py-3 text-sm hover:bg-[var(--primary)] hover:text-[var(--accent)] transition"
+                      >
+                        Web Applications
+                      </a>
+
+                      <a
+                        href="#auth"
+                        className="block px-4 py-3 text-sm hover:bg-[var(--primary)] hover:text-[var(--accent)] transition"
+                      >
+                        Authentication Systems
+                      </a>
+
+                      <a
+                        href="#store"
+                        className="block px-4 py-3 text-sm hover:bg-[var(--primary)] hover:text-[var(--accent)] transition"
+                      >
+                        E-Commerce Stores
+                      </a>
+                      <a
+                        href="#ui"
+                        className="block px-4 py-3 text-sm hover:bg-[var(--primary)] hover:text-[var(--accent)] transition"
+                      >
+                        UI / Frontend Design
+                      </a>
+                      <a
+                        href="#seo"
+                        className="block px-4 py-3 text-sm hover:bg-[var(--primary)] hover:text-[var(--accent)] transition"
+                      >
+                        Performance + SEO
+                      </a>
+                    </div>
+                  </div>
+                )}
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        <div className="flex items-center gap-6">
+          {/* Theme Toggle */}
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <button
+                onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+                className="h-9 w-9 flex items-center justify-center rounded-full border border-[var(--foreground)]/30 text-[var(--foreground)]/80 hover:text-[var(--foreground)] hover:border-[var(--foreground)]/60 transition"
+                aria-label="Toggle theme"
+              >
+                {theme === "dark" ? <FaSun size={16} /> : <FaMoon size={16} />}
+              </button>
+            </TooltipTrigger>
+            <TooltipContent
+              side="bottom"
+              className="text-xs bg-[var(--tooltip-background)] text-[var(--tooltip-foreground)]"
+            >
+              Toggle theme
+            </TooltipContent>
+          </Tooltip>
+          {/* Login */}
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <LoginModal>
+                <button className="h-9 w-9 flex items-center justify-center rounded-full border border-[var(--foreground)]/30 text-[var(--foreground)]/80 hover:text-[var(--foreground)] hover:border-[var(--foreground)]/60 transition">
+                  {theme === "dark" ? (
+                    <FaSignInAlt size={16} />
+                  ) : (
+                    <FaSignInAlt size={16} />
+                  )}
+                </button>
+              </LoginModal>
+            </TooltipTrigger>
+            <TooltipContent
+              side="bottom"
+              className="text-xs bg-[var(--tooltip-background)] text-[var(--tooltip-foreground)]"
+            >
+              Login
+            </TooltipContent>
+          </Tooltip>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Navbar;
