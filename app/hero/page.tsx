@@ -4,7 +4,7 @@ import { useTheme } from "next-themes";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
-import { motion } from "motion/react";
+import { motion } from "framer-motion";
 
 const Hero = () => {
   const { theme, setTheme } = useTheme();
