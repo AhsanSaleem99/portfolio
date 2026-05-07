@@ -5,6 +5,7 @@ import { ThemeProvider } from "./components/theme-provider";
 import Navbar from "@/components/Navbar/Navbar";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Raleway } from "next/font/google";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const raleway = Raleway({
   subsets: ["latin"],
@@ -37,6 +38,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <SpeedInsights />
         <ThemeProvider>
           <TooltipProvider>
             <Navbar />

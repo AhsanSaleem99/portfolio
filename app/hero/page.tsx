@@ -59,7 +59,7 @@ const Hero = () => {
           transition={{ duration: 0.6 }}
           className="text-sm uppercase tracking-[0.3em] text-[var(--foreground)]/60"
         >
-          Freelance Web Developer
+          Freelance Web & App Developer
         </motion.p>
 
         {/* Headline */}
