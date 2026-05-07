@@ -153,14 +153,14 @@ const Hero = () => {
           >
             {theme === "dark" ? (
               <Image
-                src="/portfolio-white.png"
+                src="/portfolio-white.webp"
                 alt="Portfolio preview"
                 fill
                 className="object-cover rounded-2xl"
               />
             ) : (
               <Image
-                src="/portfolio.png"
+                src="/portfolio.webp"
                 alt="Portfolio preview"
                 fill
                 className="object-cover rounded-2xl"

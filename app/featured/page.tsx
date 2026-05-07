@@ -96,7 +96,7 @@ const Featured = () => {
               {/* Right Image Preview */}
               <div className="relative rounded-2xl overflow-hidden border border-[var(--foreground)]/10 group">
                 <Image
-                  src="/Movie-Store.jpg"
+                  src="/Movie-Store.webp"
                   alt="Movie Streaming Preview"
                   width={600}
                   height={400}
@@ -123,7 +123,7 @@ const Featured = () => {
             {
               title: "Web Authentication System",
               desc: "Secure sign-in, sign-out, and protected routing.",
-              image: "/AuthenticationApp.jpg",
+              image: "/AuthenticationApp.webp",
               accent: "text-cyan-400",
             },
             {
