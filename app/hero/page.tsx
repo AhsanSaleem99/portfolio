@@ -9,7 +9,6 @@ import { motion } from "framer-motion";
 const Hero = () => {
   const { theme } = useTheme();
   const [mounted, setMounted] = useState(false);
-  const [isDesktop, setIsDesktop] = useState(false);
 
   useEffect(() => {
     // Wrapping in requestAnimationFrame tells the linter/compiler
@@ -20,21 +19,6 @@ const Hero = () => {
     return () => cancelAnimationFrame(handle);
   }, []);
 
-  useEffect(() => {
-    // 1. Function to check width (768px is the standard 'md' breakpoint)
-    const handleResize = () => {
-      setIsDesktop(window.innerWidth >= 768);
-    };
-
-    // 2. Run it immediately on mount
-    handleResize();
-
-    // 3. Listen for window resizes
-    window.addEventListener("resize", handleResize);
-
-    // 4. Cleanup the listener when the component unmounts
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
   // Use a simple check to prevent the theme-dependent code from running on server
   if (!mounted) {
     return <section className="min-h-[calc(100vh-4rem)]" />;
@@ -170,33 +154,31 @@ const Hero = () => {
           }}
           className="relative w-full h-full"
         >
-          {/* --- THE IMAGE (Only exists if isDesktop is true) --- */}
-          {isDesktop && (
-            <div
-              className="hidden md:block relative w-full h-full"
-              style={{
-                maskImage:
-                  "linear-gradient(to bottom, black 70%, transparent 100%)",
-                WebkitMaskImage:
-                  "linear-gradient(to bottom, black 70%, transparent 100%)",
-              }}
-            >
-              <Image
-                // Use ternary for SRC but keep ONE Image component to avoid double-loading
-                src={
-                  theme === "dark" ? "/portfolio-white.webp" : "/portfolio.webp"
-                }
-                alt="Portfolio preview"
-                fill
-                priority
-                fetchPriority="high"
-                loading="eager"
-                // 3. ADD SIZES: Tells browser it's only 33% of screen on desktop
-                sizes="33vw"
-                className="object-cover rounded-2xl"
-              />
-            </div>
-          )}
+          {/* Image with Top Opaque → Bottom Transparent Fade */}
+          <div
+            className="hidden md:block relative w-full h-full"
+            style={{
+              maskImage:
+                "linear-gradient(to bottom, black 70%, transparent 100%)",
+              WebkitMaskImage:
+                "linear-gradient(to bottom, black 70%, transparent 100%)",
+            }}
+          >
+            <Image
+              // Use ternary for SRC but keep ONE Image component to avoid double-loading
+              src={
+                theme === "dark" ? "/portfolio-white.webp" : "/portfolio.webp"
+              }
+              alt="Portfolio preview"
+              fill
+              priority
+              fetchPriority="high"
+              loading="eager"
+              // 3. ADD SIZES: Tells browser it's only 33% of screen on desktop
+              sizes="(max-width: 768px) 1px, 33vw"
+              className="object-cover rounded-2xl"
+            />
+          </div>
         </motion.div>
       </motion.div>
     </section>
