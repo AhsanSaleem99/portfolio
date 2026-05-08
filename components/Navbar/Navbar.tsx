@@ -38,7 +38,7 @@ const Navbar = () => {
     );
   }
   return (
-    <div className="fixed top-0 left-0 w-full h-16 z-50 flex items-center justify-center bg-[var(--secondary)]/95 dark:bg-[var(--background)]/95 backdrop-blur-md text-[var(--background)] dark:text-[var(--secondary)] transition-colors duration-300">
+    <div className="fixed top-0 left-0 w-full h-16 z-50 flex items-center justify-center bg-[var(--secondary)]/95 dark:bg-[var(--background)]/95 backdrop-blur-md text-[var(--background)] dark:text-[var(--foreground)]">
       <div className="max-w-6xl w-full px-6 flex items-center justify-between">
         {/* Brand */}
         <ScrollLink
@@ -148,7 +148,7 @@ const Navbar = () => {
             </TooltipTrigger>
             <TooltipContent
               side="bottom"
-              className="text-xs bg-[var(--tooltip-background)] text-[var(--tooltip-foreground)]"
+              className="text-xs bg-[var(--tooltip-background)] dark:bg-[var(--tooltip-foreground)] text-[var(--tooltip-foreground)] dark:text-[var(--tooltip-background)]"
             >
               Toggle theme
             </TooltipContent>
