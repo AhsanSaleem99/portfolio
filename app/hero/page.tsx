@@ -157,6 +157,7 @@ const Hero = () => {
                 alt="Portfolio preview"
                 fill
                 className="object-cover rounded-2xl"
+                priority
               />
             ) : (
               <Image
@@ -164,6 +165,7 @@ const Hero = () => {
                 alt="Portfolio preview"
                 fill
                 className="object-cover rounded-2xl"
+                priority
               />
             )}
           </div>

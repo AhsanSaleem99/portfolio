@@ -100,6 +100,7 @@ const Featured = () => {
                   alt="Movie Streaming Preview"
                   width={600}
                   height={400}
+                  priority
                   className="
                     object-cover w-full h-64
                     transition-transform duration-700
@@ -156,6 +157,7 @@ const Featured = () => {
                       alt={project.title}
                       width={500}
                       height={300}
+                      priority
                       className="
                         object-cover w-full h-56
                         transition-transform duration-700
