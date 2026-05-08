@@ -170,10 +170,12 @@ const Hero = () => {
               }
               alt="Portfolio preview"
               fill
-              className="object-cover rounded-2xl"
               priority
+              fetchPriority="high"
+              loading="eager"
               // 3. ADD SIZES: Tells browser it's only 33% of screen on desktop
               sizes="(max-width: 768px) 0vw, 33vw"
+              className="object-cover rounded-2xl"
             />
           </div>
         </motion.div>
