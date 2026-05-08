@@ -1,29 +1,39 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import {
+  AnimatePresence,
+  motion,
+  LazyMotion,
+  domAnimation,
+} from "framer-motion";
 import { createPortal } from "react-dom";
 
 const LoginModal = ({ children }: { children: React.ReactNode }) => {
   const [open, setOpen] = useState(false);
-  // ✅ Close Modal Function
+  const [mounted, setMounted] = useState(false);
+
+  // Handle mounting state for SSR/Portal safety
+  useEffect(() => {
+    // Wrapping in requestAnimationFrame tells the linter/compiler
+    // that this is an intentional, non-blocking async update.
+    const handle = requestAnimationFrame(() => {
+      setMounted(true);
+    });
+    return () => cancelAnimationFrame(handle);
+  }, []);
+
   const closeModal = () => setOpen(false);
 
-  // ✅ Prevent Background Scroll + ESC Close
   useEffect(() => {
     if (!open) return;
 
-    // Lock scroll
     document.body.style.overflow = "hidden";
-
-    // ESC handler
     const handleEsc = (e: KeyboardEvent) => {
       if (e.key === "Escape") closeModal();
     };
 
     window.addEventListener("keydown", handleEsc);
-
-    // Cleanup
     return () => {
       document.body.style.overflow = "";
       window.removeEventListener("keydown", handleEsc);
@@ -31,102 +41,98 @@ const LoginModal = ({ children }: { children: React.ReactNode }) => {
   }, [open]);
 
   return (
-    <>
+    <LazyMotion features={domAnimation}>
       {/* Trigger */}
-      <div onClick={() => setOpen(true)} className="cursor-pointer">
+      <div
+        onClick={() => setOpen(true)}
+        className="cursor-pointer inline-block"
+      >
         {children}
       </div>
 
       {/* Modal Portal */}
-      {open &&
-        typeof window !== "undefined" &&
+      {mounted &&
         createPortal(
-          <AnimatePresence>
-            {/* Overlay */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="fixed inset-0 z-[99999]
-              flex items-center justify-center
-              bg-black/50 backdrop-blur-md px-4"
-              onClick={closeModal} // ✅ Click outside closes
-            >
-              {/* Modal Box */}
+          <AnimatePresence mode="wait">
+            {open && (
               <motion.div
-                initial={{ scale: 0.92, opacity: 0, y: 30 }}
-                animate={{ scale: 1, opacity: 1, y: 0 }}
-                exit={{ scale: 0.92, opacity: 0, y: 30 }}
-                transition={{ duration: 0.35, ease: "easeOut" }}
-                className="w-full max-w-md rounded-2xl border border-[var(--foreground)]/10
-                bg-[var(--background)]/90 backdrop-blur-xl shadow-2xl p-8"
-                onClick={(e) => e.stopPropagation()} // ✅ Prevent inside click closing
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="fixed inset-0 z-[99999] flex items-center justify-center bg-black/60 backdrop-blur-sm px-4"
+                onClick={closeModal}
               >
-                {/* Header */}
-                <div className="flex items-start justify-between">
-                  <div>
-                    <h2 className="text-xl font-semibold tracking-tight">
-                      Login Access
-                    </h2>
-                    <p className="mt-1 text-sm text-[var(--foreground)]/60">
-                      Enter your credentials to continue.
-                    </p>
+                <motion.div
+                  initial={{ scale: 0.95, opacity: 0, y: 20 }}
+                  animate={{ scale: 1, opacity: 1, y: 0 }}
+                  exit={{ scale: 0.95, opacity: 0, y: 20 }}
+                  transition={{ type: "spring", damping: 25, stiffness: 300 }}
+                  className="w-full max-w-md rounded-2xl border border-white/10 bg-[var(--background)] shadow-2xl p-8 overflow-hidden relative"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  {/* Decorative background glow */}
+                  <div className="absolute -top-24 -right-24 w-48 h-48 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
+
+                  <div className="flex items-start justify-between relative z-10">
+                    <div>
+                      <h2 className="text-xl font-bold tracking-tight">
+                        Login Access
+                      </h2>
+                      <p className="mt-1 text-sm text-[var(--foreground)]/60">
+                        Enter your credentials to continue.
+                      </p>
+                    </div>
+                    <button
+                      onClick={closeModal}
+                      className="p-2 -mr-2 rounded-full hover:bg-white/5 text-[var(--foreground)]/40 hover:text-[var(--foreground)] transition-colors"
+                    >
+                      ✕
+                    </button>
                   </div>
 
-                  {/* Close Button */}
-                  <button
-                    onClick={closeModal}
-                    className="text-[var(--foreground)]/50 hover:text-[var(--foreground)] transition"
+                  <form
+                    className="mt-8 space-y-4 relative z-10"
+                    onSubmit={(e) => e.preventDefault()}
                   >
-                    ✕
-                  </button>
-                </div>
+                    <div>
+                      <label className="text-xs font-semibold uppercase tracking-wider text-[var(--foreground)]/50 ml-1">
+                        Username
+                      </label>
+                      <input
+                        type="text"
+                        className="mt-2 w-full px-4 py-3 rounded-xl border border-white/10 bg-white/5 focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 outline-none transition-all"
+                      />
+                    </div>
 
-                {/* Form */}
-                <form className="mt-6 space-y-5">
-                  {/* Username */}
-                  <div>
-                    <label className="text-sm font-medium">Username</label>
-                    <input
-                      type="text"
-                      placeholder="Enter username"
-                      className="mt-2 w-full px-4 py-3 rounded-xl border border-[var(--foreground)]/15
-                      bg-transparent focus:outline-none focus:ring-2 focus:ring-cyan-400/40"
-                    />
-                  </div>
+                    <div>
+                      <label className="text-xs font-semibold uppercase tracking-wider text-[var(--foreground)]/50 ml-1">
+                        Password
+                      </label>
+                      <input
+                        type="password"
+                        className="mt-2 w-full px-4 py-3 rounded-xl border border-white/10 bg-white/5 focus:border-purple-400 focus:ring-1 focus:ring-purple-400 outline-none transition-all"
+                      />
+                    </div>
 
-                  {/* Password */}
-                  <div>
-                    <label className="text-sm font-medium">Password</label>
-                    <input
-                      type="password"
-                      placeholder="Enter password"
-                      className="mt-2 w-full px-4 py-3 rounded-xl border border-[var(--foreground)]/15
-                      bg-transparent focus:outline-none focus:ring-2 focus:ring-purple-400/40"
-                    />
-                  </div>
+                    <motion.button
+                      whileHover={{ scale: 1.01 }}
+                      whileTap={{ scale: 0.98 }}
+                      className="w-full py-4 mt-4 rounded-xl font-bold bg-gradient-to-r from-cyan-500 to-purple-600 text-white shadow-lg shadow-cyan-500/20"
+                    >
+                      Sign In →
+                    </motion.button>
+                  </form>
 
-                  {/* Submit */}
-                  <button
-                    type="submit"
-                    className="w-full py-3 rounded-xl font-medium
-                    bg-gradient-to-r from-cyan-400 to-purple-500
-                    text-white hover:opacity-90 transition"
-                  >
-                    Sign In →
-                  </button>
-                </form>
-
-                {/* Footer */}
-                <p className="mt-6 text-xs text-center text-[var(--foreground)]/50">
-                  Tip: Press <span className="font-semibold">ESC</span> to close
-                </p>
+                  <p className="mt-6 text-[10px] text-center uppercase tracking-widest text-[var(--foreground)]/40 font-medium">
+                    Secure Access Platform
+                  </p>
+                </motion.div>
               </motion.div>
-            </motion.div>
+            )}
           </AnimatePresence>,
           document.body,
         )}
-    </>
+    </LazyMotion>
   );
 };
 

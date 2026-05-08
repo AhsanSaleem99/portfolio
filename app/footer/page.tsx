@@ -1,95 +1,104 @@
 "use client";
 
-import { motion } from "framer-motion";
+import React, { useRef } from "react";
+import { motion, LazyMotion, domAnimation, useInView } from "framer-motion";
 import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
 import { Link as ScrollLink } from "react-scroll";
 
 const Footer = () => {
+  const footerRef = useRef<HTMLElement>(null);
+  const isInView = useInView(footerRef, { once: true, margin: "100px" });
+
+  const socialLinks = [
+    {
+      icon: FaGithub,
+      href: "https://github.com/yourusername",
+      color: "#6ee7b7",
+    },
+    {
+      icon: FaLinkedin,
+      href: "https://linkedin.com/in/yourusername",
+      color: "#0ea5e9",
+    },
+    {
+      icon: FaTwitter,
+      href: "https://twitter.com/yourusername",
+      color: "#60a5fa",
+    },
+  ];
+
   return (
-    <footer className="relative mt-20 bg-[var(--background)] px-8 md:px-20 py-16 overflow-hidden">
-      {/* Ambient Orbs */}
-      <div className="absolute -top-20 -left-20 w-[300px] h-[300px] bg-gradient-to-tr from-[#60a5fa] via-transparent to-[#93c5fd] opacity-10 rounded-full blur-3xl animate-blob"></div>
-      <div className="absolute bottom-0 -right-32 w-[400px] h-[400px] bg-gradient-to-br from-[#facc15] via-transparent to-[#fde68a] opacity-10 rounded-full blur-3xl animate-blob animation-delay-2000"></div>
-
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7 }}
-        viewport={{ once: true }}
-        className="relative max-w-3xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6"
+    <LazyMotion features={domAnimation}>
+      <footer
+        ref={footerRef}
+        className="relative mt-20 bg-[var(--background)] px-6 md:px-20 py-12 md:py-16 overflow-hidden border-t border-white/5"
       >
-        {/* Branding */}
-        <div className="text-center md:text-left">
-          <h2 className="text-lg font-semibold tracking-tight">Ahsan Saleem</h2>
-          <p className="mt-1 text-sm text-[var(--foreground)]/70">
-            Crafting scalable digital products with clean design.
-          </p>
-        </div>
+        {/* Optimized Ambient Orbs */}
+        <div className="absolute -top-20 -left-20 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl animate-blob pointer-events-none" />
+        <div className="absolute bottom-0 -right-32 w-80 h-80 bg-yellow-500/10 rounded-full blur-3xl animate-blob animation-delay-2000 pointer-events-none" />
 
-        {/* Quick Links */}
-        <div className="flex gap-6 text-sm font-medium text-[var(--foreground)]/80">
-          <ul className="flex items-center gap-4 text-sm font-normal">
-            {["Projects", "Services", "About", "Contact"].map((item) => (
-              <li key={item} className="relative group cursor-pointer">
-                <motion.p
-                  whileHover={{ y: -2, opacity: 1 }}
-                  className="transition opacity-80 hover:opacity-100"
-                >
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6 }}
+          className="relative max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8 md:gap-6"
+        >
+          {/* Branding */}
+          <div className="text-center md:text-left">
+            <h2 className="text-xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-[var(--foreground)] to-[var(--foreground)]/60">
+              Ahsan Saleem
+            </h2>
+            <p className="mt-2 text-sm text-[var(--foreground)]/60 max-w-xs">
+              Crafting scalable digital products with clean design and
+              performance.
+            </p>
+          </div>
+
+          {/* Quick Links - Optimized for Touch */}
+          <nav>
+            <ul className="flex flex-wrap justify-center items-center gap-6 md:gap-8">
+              {["Projects", "Services", "About", "Contact"].map((item) => (
+                <li key={item}>
                   <ScrollLink
                     to={item.toLowerCase()}
                     smooth={true}
                     duration={800}
                     offset={-80}
-                    className="relative cursor-pointer text-[var(--background)] dark:text-[var(--foreground)] transition"
+                    className="text-sm font-medium text-[var(--foreground)]/70 hover:text-cyan-400 transition-colors cursor-pointer"
                   >
                     {item}
                   </ScrollLink>
-                </motion.p>
-              </li>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          {/* Socials */}
+          <div className="flex gap-5">
+            {socialLinks.map((social, i) => (
+              <motion.a
+                key={i}
+                href={social.href}
+                target="_blank"
+                rel="noreferrer"
+                whileHover={{ y: -3, scale: 1.1, color: social.color }} // Framer Motion handles the color swap here
+                whileTap={{ scale: 0.9 }}
+                className="p-2 rounded-full bg-white/5 border border-white/10 text-[var(--foreground)]/70 transition-all"
+              >
+                <social.icon size={20} />
+              </motion.a>
             ))}
-          </ul>
-        </div>
+          </div>
+        </motion.div>
 
-        {/* Socials */}
-        <div className="flex gap-4 text-[var(--foreground)]/80">
-          <motion.a
-            href="https://github.com/yourusername"
-            target="_blank"
-            rel="noreferrer"
-            whileHover={{ scale: 1.1, color: "#6ee7b7" }}
-          >
-            <FaGithub size={20} />
-          </motion.a>
-          <motion.a
-            href="https://linkedin.com/in/yourusername"
-            target="_blank"
-            rel="noreferrer"
-            whileHover={{ scale: 1.1, color: "#0ea5e9" }}
-          >
-            <FaLinkedin size={20} />
-          </motion.a>
-          <motion.a
-            href="https://twitter.com/yourusername"
-            target="_blank"
-            rel="noreferrer"
-            whileHover={{ scale: 1.1, color: "#60a5fa" }}
-          >
-            <FaTwitter size={20} />
-          </motion.a>
+        {/* Copyright */}
+        <div className="mt-12 pt-8 border-t border-white/5">
+          <p className="text-center text-[10px] uppercase tracking-widest text-[var(--foreground)]/40 font-medium">
+            © {new Date().getFullYear()} Ahsan Saleem. All rights reserved.
+          </p>
         </div>
-      </motion.div>
-
-      {/* Copyright */}
-      <motion.p
-        initial={{ opacity: 0, y: 10 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7, delay: 0.2 }}
-        viewport={{ once: true }}
-        className="mt-10 text-center text-xs text-[var(--foreground)]/50"
-      >
-        © 2026 Ahsan Saleem. All rights reserved.
-      </motion.p>
-    </footer>
+      </footer>
+    </LazyMotion>
   );
 };
 

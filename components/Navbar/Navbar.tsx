@@ -6,9 +6,16 @@ import { FaSun } from "react-icons/fa6";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
 import { FaSignInAlt } from "react-icons/fa";
 import { Link as ScrollLink } from "react-scroll";
-import LoginModal from "@/app/components/LoginModal";
+import dynamic from "next/dynamic";
 
 const Navbar = () => {
+  const LoginModal = dynamic(() => import("../../app/components/LoginModal"), {
+    ssr: false,
+    loading: () => (
+      <div className="h-9 w-9 rounded-full border border-[var(--foreground)]/30 animate-pulse" />
+    ),
+  });
+
   const { theme, setTheme } = useTheme();
   // 1. Start as false
   const [mounted, setMounted] = useState(false);
@@ -133,19 +140,19 @@ const Navbar = () => {
           {/* Login */}
           <Tooltip>
             <TooltipTrigger asChild>
+              {/* The LoginModal now wraps the button trigger */}
               <LoginModal>
-                <button className="h-9 w-9 flex items-center justify-center rounded-full border border-[var(--foreground)]/30 text-[var(--foreground)]/80 hover:text-[var(--foreground)] hover:border-[var(--foreground)]/60 transition">
-                  {theme === "dark" ? (
-                    <FaSignInAlt size={16} />
-                  ) : (
-                    <FaSignInAlt size={16} />
-                  )}
+                <button
+                  aria-label="Login"
+                  className="h-9 w-9 flex items-center justify-center rounded-full border border-[var(--foreground)]/20 text-[var(--foreground)]/70 hover:text-cyan-400 hover:border-cyan-400/50 transition-all duration-300 active:scale-95"
+                >
+                  <FaSignInAlt size={16} />
                 </button>
               </LoginModal>
             </TooltipTrigger>
             <TooltipContent
               side="bottom"
-              className="text-xs bg-[var(--tooltip-background)] text-[var(--tooltip-foreground)]"
+              className="text-xs bg-[var(--background)] border border-white/10 text-[var(--foreground)]"
             >
               Login
             </TooltipContent>
