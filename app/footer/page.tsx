@@ -11,16 +11,19 @@ const Footer = () => {
 
   const socialLinks = [
     {
+      name: "Github",
       icon: FaGithub,
       href: "https://github.com/yourusername",
       color: "#6ee7b7",
     },
     {
+      name: "LinkedIn",
       icon: FaLinkedin,
       href: "https://linkedin.com/in/yourusername",
       color: "#0ea5e9",
     },
     {
+      name: "Twitter",
       icon: FaTwitter,
       href: "https://twitter.com/yourusername",
       color: "#60a5fa",
@@ -81,6 +84,7 @@ const Footer = () => {
                 href={social.href}
                 target="_blank"
                 rel="noreferrer"
+                aria-label={`Visit my ${social.name} profile`}
                 whileHover={{ y: -3, scale: 1.1, color: social.color }} // Framer Motion handles the color swap here
                 whileTap={{ scale: 0.9 }}
                 className="p-2 rounded-full bg-white/5 border border-white/10 text-[var(--foreground)]/70 transition-all"

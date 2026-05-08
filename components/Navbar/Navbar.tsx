@@ -37,7 +37,7 @@ const Navbar = () => {
     );
   }
   return (
-    <div className="fixed top-0 left-0 w-full h-16 z-50 flex items-center justify-center bg-[var(--secondary)] dark:bg-[var(--background)] backdrop-blur text-[var(--background)] dark:text-[var(--foreground)]">
+    <div className="fixed top-0 left-0 w-full h-16 z-50 flex items-center justify-center bg-[var(--secondary)]/95 dark:bg-[var(--background)]/95 backdrop-blur-md text-[var(--background)] dark:text-[var(--foreground)]">
       <div className="max-w-6xl w-full px-6 flex items-center justify-between">
         {/* Brand */}
         <ScrollLink
@@ -46,7 +46,7 @@ const Navbar = () => {
           className="text-2xl font-extrabold tracking-tight relative group cursor-pointer"
         >
           Axon
-          <span className="text-gray-400">.io</span>
+          <span className="text-cyan-400">.io</span>
           <span
             className="absolute left-0 -bottom-1 h-[2px] w-full
                 bg-[var(--secondary)] dark:bg-[var(--primary)]
@@ -143,7 +143,7 @@ const Navbar = () => {
               {/* The LoginModal now wraps the button trigger */}
               <LoginModal>
                 <button
-                  aria-label="Login"
+                  aria-label="Log in to Account"
                   className="h-9 w-9 flex items-center justify-center rounded-full border border-[var(--foreground)]/20 text-[var(--foreground)]/70 hover:text-cyan-400 hover:border-cyan-400/50 transition-all duration-300 active:scale-95"
                 >
                   <FaSignInAlt size={16} />

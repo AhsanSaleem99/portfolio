@@ -94,7 +94,7 @@ const Skills = () => {
         <div className="flex flex-col lg:flex-row gap-10 items-center">
           <div className="flex-1">
             <div className="max-w-2xl">
-              <p className="text-xs uppercase tracking-[0.3em] text-[var(--foreground)]/60">
+              <p className="text-xs uppercase tracking-[0.3em] text-[var(--foreground)]/85">
                 Expertise
               </p>
               <h2 className="mt-6 text-4xl md:text-5xl font-bold tracking-tight">

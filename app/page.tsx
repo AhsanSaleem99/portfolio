@@ -10,7 +10,7 @@ import Footer from "./footer/page";
 
 const Home = () => {
   return (
-    <>
+    <main>
       <Hero />
       <Featured />
       <Services />
@@ -18,7 +18,7 @@ const Home = () => {
       <About />
       <Contact />
       <Footer />
-    </>
+    </main>
   );
 };
 

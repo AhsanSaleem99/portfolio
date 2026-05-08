@@ -43,7 +43,7 @@ export default function RootLayout({
         <ThemeProvider>
           <TooltipProvider>
             <Navbar />
-            {children}
+            <main>{children}</main>
           </TooltipProvider>
         </ThemeProvider>
         <Analytics />
