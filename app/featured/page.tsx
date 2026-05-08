@@ -130,7 +130,7 @@ const Featured = () => {
             {
               title: "Ecommerce Platform (In Progress)",
               desc: "Product discovery, cart flow, and storefront design.",
-              image: "/placeholder-shop.png",
+              image: "/portfolio.webp",
               accent: "text-purple-400",
             },
           ].map((project, i) => (

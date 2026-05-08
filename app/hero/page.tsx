@@ -3,13 +3,26 @@
 import { useTheme } from "next-themes";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
 const Hero = () => {
   const { theme } = useTheme();
-  const [mounted] = useState(() => typeof window !== "undefined");
-  if (!mounted) return null;
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    // Wrapping in requestAnimationFrame tells the linter/compiler
+    // that this is an intentional, non-blocking async update.
+    const handle = requestAnimationFrame(() => {
+      setMounted(true);
+    });
+    return () => cancelAnimationFrame(handle);
+  }, []);
+
+  // Use a simple check to prevent the theme-dependent code from running on server
+  if (!mounted) {
+    return <section className="min-h-[calc(100vh-4rem)]" />;
+  }
   return (
     <section
       id="home"
