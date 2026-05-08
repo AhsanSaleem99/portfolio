@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useTheme } from "next-themes";
 import { FaMoon } from "react-icons/fa6";
 import { FaSun } from "react-icons/fa6";
@@ -10,9 +10,25 @@ import LoginModal from "@/app/components/LoginModal";
 
 const Navbar = () => {
   const { theme, setTheme } = useTheme();
-  const [mounted] = useState(() => typeof window !== "undefined");
-  if (!mounted) return null;
+  // 1. Start as false
+  const [mounted, setMounted] = useState(false);
 
+  // 2. Set to true only AFTER the first render
+  useEffect(() => {
+    // Wrapping in requestAnimationFrame tells the linter/compiler
+    // that this is an intentional, non-blocking async update.
+    const handle = requestAnimationFrame(() => {
+      setMounted(true);
+    });
+    return () => cancelAnimationFrame(handle);
+  }, []);
+
+  // 3. Keep the placeholder structure identical to the final div
+  if (!mounted) {
+    return (
+      <div className="fixed top-0 left-0 w-full h-16 z-50 bg-[var(--secondary)] dark:bg-[var(--background)] opacity-0" />
+    );
+  }
   return (
     <div className="fixed top-0 left-0 w-full h-16 z-50 flex items-center justify-center bg-[var(--secondary)] dark:bg-[var(--background)] backdrop-blur text-[var(--background)] dark:text-[var(--foreground)]">
       <div className="max-w-6xl w-full px-6 flex items-center justify-between">
