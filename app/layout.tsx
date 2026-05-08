@@ -37,6 +37,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning className={raleway.variable}>
+      <head>
+        {/* Manual meta tag injection */}
+        <meta name="color-scheme" content="light dark" />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
