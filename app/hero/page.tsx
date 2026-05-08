@@ -7,7 +7,7 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 
 const Hero = () => {
-  const { theme, setTheme } = useTheme();
+  const { theme } = useTheme();
   const [mounted] = useState(() => typeof window !== "undefined");
   if (!mounted) return null;
   return (
@@ -16,12 +16,12 @@ const Hero = () => {
       className="relative min-h-[calc(100vh-4rem)] flex items-center pt-20 px-8 md:px-20 overflow-hidden"
     >
       {/* Ambient blurred shapes */}
-      <div className="absolute -top-20 -left-20 w-[400px] h-[400px] bg-gradient-to-tr from-[#60a5fa] via-transparent to-[#93c5fd] opacity-20 rounded-full blur-3xl animate-blob"></div>
+      <div className="pointer-events-none absolute -top-20 -left-20 w-[400px] h-[400px] bg-gradient-to-tr from-[#60a5fa] via-transparent to-[#93c5fd] opacity-20 rounded-full blur-3xl animate-blob"></div>
 
-      <div className="absolute bottom-0 -right-32 w-[600px] h-[600px] bg-gradient-to-br from-[#facc15] via-transparent to-[#fde68a] opacity-15 rounded-full blur-3xl animate-blob animation-delay-2000"></div>
+      <div className="pointer-events-none absolute bottom-0 -right-32 w-[600px] h-[600px] bg-gradient-to-br from-[#facc15] via-transparent to-[#fde68a] opacity-15 rounded-full blur-3xl animate-blob animation-delay-2000"></div>
 
       {/* Faint abstract polygon lines */}
-      <svg className="absolute w-full h-full animate-polygon">
+      <svg className="pointer-events-none absolute w-full h-full animate-polygon">
         <defs>
           <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stopColor="#60a5fa" stopOpacity="0.2" />
@@ -44,7 +44,7 @@ const Hero = () => {
           hidden: {},
           show: {
             transition: {
-              staggerChildren: 0.15,
+              staggerChildren: 0.1,
             },
           },
         }}
@@ -53,7 +53,7 @@ const Hero = () => {
         {/* Small Label */}
         <motion.p
           variants={{
-            hidden: { opacity: 0, y: 15 },
+            hidden: { opacity: 0, y: 10 },
             show: { opacity: 1, y: 0 },
           }}
           transition={{ duration: 0.6 }}
@@ -85,7 +85,7 @@ const Hero = () => {
         {/* Supporting Line */}
         <motion.p
           variants={{
-            hidden: { opacity: 0, y: 20 },
+            hidden: { opacity: 0, y: 15 },
             show: { opacity: 1, y: 0 },
           }}
           transition={{ duration: 0.8 }}
@@ -98,10 +98,9 @@ const Hero = () => {
         {/* CTA Buttons */}
         <motion.div
           variants={{
-            hidden: { opacity: 0, y: 20 },
+            hidden: { opacity: 0, y: 10 },
             show: { opacity: 1, y: 0 },
           }}
-          transition={{ duration: 0.8 }}
           className="mt-10 flex gap-4"
         >
           <Link
@@ -126,9 +125,9 @@ const Hero = () => {
       {/* Right Side Image (Float + Fade Mask) */}
       {/* ========================= */}
       <motion.div
-        initial={{ opacity: 0, x: 60 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 1.5, delay: 0.5 }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1, delay: 0.5 }}
         className="hidden md:block absolute bottom-0 right-8 pt-6 h-5/6 w-1/3 -rotate-10"
       >
         {/* Floating effect */}
@@ -151,23 +150,18 @@ const Hero = () => {
                 "linear-gradient(to bottom, black 70%, transparent 100%)",
             }}
           >
-            {theme === "dark" ? (
-              <Image
-                src="/portfolio-white.webp"
-                alt="Portfolio preview"
-                fill
-                className="object-cover rounded-2xl"
-                priority
-              />
-            ) : (
-              <Image
-                src="/portfolio.webp"
-                alt="Portfolio preview"
-                fill
-                className="object-cover rounded-2xl"
-                priority
-              />
-            )}
+            <Image
+              // Use ternary for SRC but keep ONE Image component to avoid double-loading
+              src={
+                theme === "dark" ? "/portfolio-white.webp" : "/portfolio.webp"
+              }
+              alt="Portfolio preview"
+              fill
+              className="object-cover rounded-2xl"
+              priority
+              // 3. ADD SIZES: Tells browser it's only 33% of screen on desktop
+              sizes="(max-width: 768px) 0vw, 33vw"
+            />
           </div>
         </motion.div>
       </motion.div>
