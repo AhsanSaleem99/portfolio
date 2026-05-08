@@ -132,10 +132,10 @@ const Navbar = () => {
                 <AnimatePresence mode="wait" initial={false}>
                   <motion.div
                     key={theme}
-                    initial={{ y: -10, opacity: 0, rotate: -45 }}
+                    initial={{ y: -5, opacity: 0, rotate: -45 }}
                     animate={{ y: 0, opacity: 1, rotate: 0 }}
-                    exit={{ y: 10, opacity: 0, rotate: 45 }}
-                    transition={{ duration: 0.15 }}
+                    exit={{ y: 5, opacity: 0, rotate: 45 }}
+                    transition={{ duration: 0.1 }}
                   >
                     {theme === "dark" ? (
                       <FaSun size={16} />
