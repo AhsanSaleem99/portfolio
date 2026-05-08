@@ -56,8 +56,7 @@ const Navbar = () => {
           smooth={true}
           className="text-2xl font-extrabold tracking-tight relative group cursor-pointer"
         >
-          Axon
-          <span className="text-cyan-400">.io</span>
+          A <span className="text-cyan-400">Saleem</span>
           <span
             className="absolute left-0 -bottom-1 h-[2px] w-full
                 bg-[var(--secondary)] dark:bg-[var(--primary)]
