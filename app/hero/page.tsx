@@ -9,30 +9,17 @@ import { motion } from "framer-motion";
 const Hero = () => {
   const { theme } = useTheme();
   const [mounted, setMounted] = useState(false);
-  const [isDesktop, setIsDesktop] = useState(false);
 
   useEffect(() => {
+    // Wrapping in requestAnimationFrame tells the linter/compiler
+    // that this is an intentional, non-blocking async update.
     const handle = requestAnimationFrame(() => {
       setMounted(true);
     });
     return () => cancelAnimationFrame(handle);
   }, []);
 
-  useEffect(() => {
-    // 1. Define the function inside useEffect so it's stable
-    const handleResize = () => setIsDesktop(window.innerWidth >= 768);
-
-    // 2. Initial check
-    handleResize();
-
-    // 3. Add listener
-    window.addEventListener("resize", handleResize);
-
-    // 4. Cleanup correctly
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  // Prevent hydration mismatch for theme-dependent UI
+  // Use a simple check to prevent the theme-dependent code from running on server
   if (!mounted) {
     return <section className="min-h-[calc(100vh-4rem)]" />;
   }
@@ -167,30 +154,30 @@ const Hero = () => {
           className="relative w-full h-full"
         >
           {/* Image with Top Opaque → Bottom Transparent Fade */}
-          {isDesktop && (
-            <div
-              className="relative w-full h-full"
-              style={{
-                maskImage:
-                  "linear-gradient(to bottom, black 70%, transparent 100%)",
-                WebkitMaskImage:
-                  "linear-gradient(to bottom, black 70%, transparent 100%)",
-              }}
-            >
-              <Image
-                src={
-                  theme === "dark" ? "/portfolio-white.webp" : "/portfolio.webp"
-                }
-                alt="Portfolio preview"
-                fill
-                priority
-                fetchPriority="high"
-                loading="eager"
-                sizes="33vw"
-                className="object-cover rounded-2xl"
-              />
-            </div>
-          )}
+          <div
+            className="hidden md:block relative w-full h-full"
+            style={{
+              maskImage:
+                "linear-gradient(to bottom, black 70%, transparent 100%)",
+              WebkitMaskImage:
+                "linear-gradient(to bottom, black 70%, transparent 100%)",
+            }}
+          >
+            <Image
+              // Use ternary for SRC but keep ONE Image component to avoid double-loading
+              src={
+                theme === "dark" ? "/portfolio-white.webp" : "/portfolio.webp"
+              }
+              alt="Portfolio preview"
+              fill
+              priority
+              fetchPriority="high"
+              loading="eager"
+              // 3. ADD SIZES: Tells browser it's only 33% of screen on desktop
+              sizes="(max-width: 768px) 1px, 33vw"
+              className="object-cover rounded-2xl"
+            />
+          </div>
         </motion.div>
       </motion.div>
     </section>
