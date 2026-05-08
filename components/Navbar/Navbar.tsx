@@ -34,11 +34,19 @@ const Navbar = () => {
   // 3. Keep the placeholder structure identical to the final div
   if (!mounted) {
     return (
-      <div className="fixed top-0 left-0 w-full h-9 W-18 z-50 bg-[var(--secondary)] dark:bg-[var(--background)] opacity-0" />
+      <div className="fixed top-0 left-0 w-full h-16 z-50 bg-black md:bg-transparent" />
     );
   }
   return (
-    <div className="fixed top-0 left-0 w-full h-16 z-50 flex items-center justify-center bg-[var(--secondary)]/95 dark:bg-[var(--background)]/95 backdrop-blur-md -webkit-backdrop-filter: blur(12px) text-[var(--background)] dark:text-[var(--foreground)] ">
+    <div
+      className={`fixed top-0 left-0 w-full h-16 z-50 flex items-center justify-center transition-colors duration-300 backdrop-blur-md
+  ${
+    mounted && theme === "dark"
+      ? "bg-black/90 border-b border-white/5 text-white"
+      : "bg-white/90 border-b border-black/5 text-black"
+  }`}
+      style={{ WebkitBackdropFilter: "blur(12px)" }} // Correct way to add webkit prefix in React
+    >
       <div className="max-w-6xl w-full px-6 flex items-center justify-between">
         {/* Brand */}
         <ScrollLink
