@@ -7,6 +7,7 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
 import { FaSignInAlt } from "react-icons/fa";
 import { Link as ScrollLink } from "react-scroll";
 import dynamic from "next/dynamic";
+import { motion, AnimatePresence } from "framer-motion";
 
 const Navbar = () => {
   const LoginModal = dynamic(() => import("../../app/components/LoginModal"), {
@@ -33,7 +34,7 @@ const Navbar = () => {
   // 3. Keep the placeholder structure identical to the final div
   if (!mounted) {
     return (
-      <div className="fixed top-0 left-0 w-full h-16 z-50 bg-[var(--secondary)] dark:bg-[var(--background)] opacity-0" />
+      <div className="fixed top-0 left-0 w-full h-9 W-18 z-50 bg-[var(--secondary)] dark:bg-[var(--background)] opacity-0" />
     );
   }
   return (
@@ -118,7 +119,7 @@ const Navbar = () => {
           </ul>
         </nav>
 
-        <div className="flex items-center gap-6">
+        <div className="flex items-center gap-3">
           {/* Theme Toggle */}
           <Tooltip>
             <TooltipTrigger asChild>
@@ -127,7 +128,22 @@ const Navbar = () => {
                 className="h-9 w-9 flex items-center justify-center rounded-full border border-[var(--foreground)]/30 text-[var(--foreground)]/80 hover:text-[var(--foreground)] hover:border-[var(--foreground)]/60 transition"
                 aria-label="Toggle theme"
               >
-                {theme === "dark" ? <FaSun size={16} /> : <FaMoon size={16} />}
+                {/* 2. Use AnimatePresence for a "pop" transition between icons */}
+                <AnimatePresence mode="wait" initial={false}>
+                  <motion.div
+                    key={theme}
+                    initial={{ y: -10, opacity: 0, rotate: -45 }}
+                    animate={{ y: 0, opacity: 1, rotate: 0 }}
+                    exit={{ y: 10, opacity: 0, rotate: 45 }}
+                    transition={{ duration: 0.15 }}
+                  >
+                    {theme === "dark" ? (
+                      <FaSun size={16} />
+                    ) : (
+                      <FaMoon size={16} />
+                    )}
+                  </motion.div>
+                </AnimatePresence>
               </button>
             </TooltipTrigger>
             <TooltipContent
