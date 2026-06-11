@@ -1,12 +1,75 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { motion, LazyMotion, domAnimation, useInView } from "framer-motion";
 
+interface formDataState {
+  name: string;
+  email: string;
+  message: string;
+}
 const Contact = () => {
+  const [formData, setFormData] = useState<formDataState>({
+    name: "",
+    email: "",
+    message: "",
+  });
+  const [loading, setLoading] = useState<boolean>(false);
+  const [statusMessage, setStatusMessage] = useState<{
+    text: string;
+    isError: boolean;
+  } | null>(null);
   const sectionRef = useRef<HTMLElement>(null);
   // Only trigger animations when the user is 100px away from the section
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
+
+  // Input change handler with TypeScript types
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  // Form Submit handler
+  const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setLoading(true);
+    setStatusMessage(null); // Clear old status message
+
+    try {
+      const response = await fetch("/api/send-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        // SUCCESS: Updating status message and clearing form
+        setStatusMessage({
+          text: "Message sent successfully!",
+          isError: false,
+        });
+        setFormData({ name: "", email: "", message: "" });
+      } else {
+        // FAIL: State update
+        setStatusMessage({
+          text: `Failed: ${data.error || "Unknown error"}`,
+          isError: true,
+        });
+      }
+    } catch (error) {
+      console.error("Frontend Form Error:", error);
+      setStatusMessage({
+        text: "Something went wrong while connecting to the server.",
+        isError: true,
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <LazyMotion features={domAnimation}>
@@ -72,13 +135,19 @@ const Contact = () => {
             animate={isInView ? { opacity: 1, scale: 1 } : {}}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            <form className="p-6 md:p-8 rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl shadow-2xl space-y-5">
+            <form
+              onSubmit={handleFormSubmit}
+              className="p-6 md:p-8 rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl shadow-2xl space-y-5"
+            >
               <div>
                 <label className="text-xs font-semibold uppercase tracking-wider text-[var(--foreground)]/50 ml-1">
                   Name
                 </label>
                 <input
                   type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
                   required
                   placeholder="Your name"
                   className="mt-2 w-full px-4 py-3.5 rounded-xl bg-white/5 border border-white/10 focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 outline-none transition-all placeholder:text-white/20"
@@ -91,6 +160,9 @@ const Contact = () => {
                 </label>
                 <input
                   type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
                   required
                   placeholder="you@example.com"
                   className="mt-2 w-full px-4 py-3.5 rounded-xl bg-white/5 border border-white/10 focus:border-purple-400 focus:ring-1 focus:ring-purple-400 outline-none transition-all placeholder:text-white/20"
@@ -102,6 +174,9 @@ const Contact = () => {
                   Message
                 </label>
                 <textarea
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
                   rows={4}
                   required
                   placeholder="Tell me about your project..."
@@ -112,10 +187,25 @@ const Contact = () => {
               <motion.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
+                disabled={loading}
+                type="submit"
                 className="w-full py-4 mt-2 rounded-xl bg-gradient-to-r from-cyan-500 to-purple-600 text-white font-bold shadow-lg shadow-cyan-500/20 hover:shadow-cyan-500/40 transition-all"
               >
-                Send Message →
+                {loading ? "Sending..." : "Send Message →"}
               </motion.button>
+
+              {/* Button ke baad ya form ke end par yeh code rakhein */}
+              {statusMessage && (
+                <div
+                  className={`p-3 rounded-md text-sm mt-4 ${
+                    statusMessage.isError
+                      ? "bg-red-500/10 text-red-500 border border-red-500/20"
+                      : "bg-green-500/10 text-green-500 border border-green-500/20"
+                  }`}
+                >
+                  {statusMessage.text}
+                </div>
+              )}
 
               <p className="text-[10px] md:text-xs text-center text-[var(--foreground)]/40 italic">
                 I usually respond within 24 hours.
