@@ -44,7 +44,7 @@ export async function POST(request: Request) {
 
            <!-- 🚀 THE ULTIMATE FIX: This link ensures NO 'Re:' will ever be generated -->
            <p><strong>Email:</strong>
-              <a href="mailto:${email}?from=admin@asaleem.com&subject=Regarding your inquiry - ASaleem Support&body=Hi ${name},%0A%0A">
+              <a href="mailto:${email}?subject=Regarding your inquiry - ASaleem Support&body=Hi ${name},%0A%0A">
                  ${email}
               </a>
            </p>
