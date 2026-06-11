@@ -36,15 +36,20 @@ export async function POST(request: Request) {
             address: "admin@asaleem.com",
           },
         ],
-        reply_to: {
-          address: email,
-        },
-        subject: `Portfolio: Message from ${name}`,
+
+        subject: `Portfolio Inquiry from ${name}`,
         text: `Name: ${name}\nEmail: ${email}\nMessage: ${message}`,
         html: `<h3>New Portfolio Message</h3>
-               <p><strong>Name:</strong> ${name}</p>
-               <p><strong>Email:</strong> ${email}</p>
-               <p><strong>Message:</strong> ${message}</p>`,
+           <p><strong>Name:</strong> ${name}</p>
+
+           <!-- 🚀 THE ULTIMATE FIX: This link ensures NO 'Re:' will ever be generated -->
+           <p><strong>Email:</strong>
+              <a href="mailto:${email}?subject=Regarding your inquiry - ASaleem Support&body=Hi ${name},%0A%0A">
+                 ${email}
+              </a>
+           </p>
+
+           <p><strong>Message:</strong> ${message}</p>`,
       }),
     });
 
