@@ -1,17 +1,18 @@
 import { NextResponse } from "next/server";
 
-// 1. Handle CORS Preflight requests from your extension
+// Reusable CORS headers to allow your vanilla extension to talk to Next.js
+const corsHeaders = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Methods": "POST, OPTIONS",
+  "Access-Control-Allow-Headers": "Content-Type",
+};
+
+// 1. Handles the automatic browser security handshake (Preflight)
 export async function OPTIONS() {
-  return new NextResponse(null, {
-    status: 200,
-    headers: {
-      "Access-Control-Allow-Origin": "*", // Allows your vanilla extension to communicate
-      "Access-Control-Allow-Methods": "POST, OPTIONS",
-      "Access-Control-Allow-Headers": "Content-Type",
-    },
-  });
+  return NextResponse.json({}, { headers: corsHeaders });
 }
 
+// 2. Handles the actual email sending
 export async function POST(request: Request) {
   try {
     const { email, subject, body } = await request.json();
@@ -34,16 +35,15 @@ export async function POST(request: Request) {
 
     return NextResponse.json(data, {
       status: r.ok ? 200 : 500,
-      headers: { "Access-Control-Allow-Origin": "*" }, // Required for extension access
+      headers: corsHeaders,
     });
   } catch (err) {
-    // Fixed: Using 'err' inside the response so TypeScript is happy
+    // Fixed: 'err' is now logged so the TypeScript compiler won't complain about unused variables
+    console.error("Extension API Route Error:", err);
+
     return NextResponse.json(
-      {
-        error: "Malformed request body",
-        details: err instanceof Error ? err.message : String(err),
-      },
-      { status: 400, headers: { "Access-Control-Allow-Origin": "*" } },
+      { error: "Internal processing error" },
+      { status: 400, headers: corsHeaders },
     );
   }
 }
