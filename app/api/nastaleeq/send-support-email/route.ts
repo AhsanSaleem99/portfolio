@@ -1,34 +1,28 @@
 import { NextResponse } from "next/server";
 
-// Reusable CORS headers to allow your vanilla extension to talk to Next.js
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Methods": "POST, OPTIONS",
   "Access-Control-Allow-Headers": "Content-Type",
 };
 
-// 1. Handles the automatic browser security handshake (Preflight)
 export async function OPTIONS() {
   return NextResponse.json({}, { headers: corsHeaders });
 }
 
-// 2. Handles the actual email sending
 export async function POST(request: Request) {
   try {
-    const { email, subject, body } = await request.json();
+    // 1. Capture the exact payload sent by your extension
+    const incomingPayload = await request.json();
 
+    // 2. Forward it directly to Maileroo, seamlessly injecting the secure environment key
     const r = await fetch("https://smtp.maileroo.com/api/v2/emails", {
       method: "POST",
       headers: {
         "X-API-Key": process.env.NASTALEEQ_API_KEY!,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        from: { address: "no-reply@asaleem.com" },
-        to: [{ address: "nastaleeq-support@asaleem.com" }],
-        subject: subject || "Extension Support",
-        text: `From: ${email}\n\n${body}`,
-      }),
+      body: JSON.stringify(incomingPayload),
     });
 
     const data = await r.json();
@@ -38,9 +32,7 @@ export async function POST(request: Request) {
       headers: corsHeaders,
     });
   } catch (err) {
-    // Fixed: 'err' is now logged so the TypeScript compiler won't complain about unused variables
-    console.error("Extension API Route Error:", err);
-
+    console.error("Extension API Proxy Error:", err);
     return NextResponse.json(
       { error: "Internal processing error" },
       { status: 400, headers: corsHeaders },
