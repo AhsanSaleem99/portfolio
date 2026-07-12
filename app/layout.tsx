@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "@/styles/globals.css";
 import { ThemeProvider } from "./components/theme-provider";
-import Navbar from "@/components/Navbar/Navbar";
+import NavbarWrapper from "../components/Navbar-Wrapper"; // Import the wrapper
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Raleway } from "next/font/google";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -48,7 +48,7 @@ export default function RootLayout({
         <SpeedInsights />
         <ThemeProvider>
           <TooltipProvider>
-            <Navbar />
+            <NavbarWrapper />
             <main>{children}</main>
           </TooltipProvider>
         </ThemeProvider>
