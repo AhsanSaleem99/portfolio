@@ -16,9 +16,9 @@ const NFW_PRIVACY = () => {
         </div>
         <hr className="w-full self-stretch border-t border-gray-300 my-8" />
         <div className="text-sm">
-          <strong>Effective Date:</strong> January 1, 2023
+          <strong>Effective Date:</strong> July 21, 2026
           <br />
-          <strong>Last Updated:</strong> January 1, 2023
+          <strong>Last Updated:</strong> January 21, 2026
           <br />
           <strong>Version:</strong> v7.6
         </div>
@@ -188,7 +188,7 @@ const NFW_PRIVACY = () => {
             <strong className="text-lg ml-8">Where it is stored:</strong>
             <ul className="list-disc ml-20 my-2">
               <li>
-                <p>Locally in your Chrome browser (chrome.storage.local)</p>
+                <p>Locally in your Chrome browser (indexDB)</p>
               </li>
               <li>
                 <p>
