@@ -471,11 +471,6 @@ const NFW_PRIVACY = () => {
                   bug
                 </p>
               </li>
-              <li>
-                <p>
-                  Google and Datamuse may log queries per their privacy policies
-                </p>
-              </li>
             </ul>
           </div>
         </div>
