@@ -995,6 +995,12 @@ const NFW_PRIVACY = () => {
               <p>Chrome Web Store User Data Policy</p>
             </li>
           </ul>
+          <br />
+          <p>
+            The use of information received from Google APIs will adhere to the
+            Chrome Web Store User Data Policy, including the Limited Use
+            requirements.
+          </p>
         </div>
       </section>
       <hr className="w-full self-stretch border-t border-gray-300 my-8" />
