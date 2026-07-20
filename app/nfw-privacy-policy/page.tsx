@@ -18,7 +18,7 @@ const NFW_PRIVACY = () => {
         <div className="text-sm">
           <strong>Effective Date:</strong> July 21, 2026
           <br />
-          <strong>Last Updated:</strong> January 21, 2026
+          <strong>Last Updated:</strong> July 21, 2026
           <br />
           <strong>Version:</strong> v7.6
         </div>
