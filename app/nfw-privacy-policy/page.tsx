@@ -127,9 +127,6 @@ const NFW_PRIVACY = () => {
               <li>
                 <p>Until you manually delete your account</p>
               </li>
-              <li>
-                <p>We delete all data within 7 days of account deletion</p>
-              </li>
             </ul>
           </div>
           <div
@@ -186,8 +183,9 @@ const NFW_PRIVACY = () => {
             <ul className="list-disc ml-20 my-2">
               <li>
                 <p>
-                  Indefinitely (until you specifically request for the deletion
-                  of your payment verification information)
+                  As soon as you manually delete your account, your payment
+                  verification information will also be deleted from our
+                  database.
                 </p>
               </li>
             </ul>
@@ -565,6 +563,17 @@ const NFW_PRIVACY = () => {
                   </td>
                 </tr>
                 <tr className="hover:bg-neutral-700 transition-colors">
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    Payment Information
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    Verify payment & activate Pro
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    Contract performance
+                  </td>
+                </tr>
+                <tr className="hover:bg-neutral-700 transition-colors">
                   <td className="px-6 py-4 whitespace-nowrap">Settings</td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     Personalization
@@ -811,7 +820,18 @@ const NFW_PRIVACY = () => {
               <tr className="hover:bg-neutral-700 transition-colors">
                 <td className="px-6 py-4 whitespace-nowrap">Account</td>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  until you delete account
+                  Until you delete account
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  Settings → Account → Delete
+                </td>
+              </tr>
+              <tr className="hover:bg-neutral-700 transition-colors">
+                <td className="px-6 py-4 whitespace-nowrap">
+                  Payment Information
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  Until you delete account
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
                   Settings → Account → Delete
