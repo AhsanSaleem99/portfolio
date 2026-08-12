@@ -16,9 +16,9 @@ const NFW_PRIVACY = () => {
         </div>
         <hr className="w-full self-stretch border-t border-gray-300 my-8" />
         <div className="text-sm">
-          <strong>Effective Date:</strong> July 21, 2026
+          <strong>Effective Date:</strong> August 12, 2026
           <br />
-          <strong>Last Updated:</strong> July 21, 2026
+          <strong>Last Updated:</strong> August 12, 2026
           <br />
           <strong>Version:</strong> v7.6
         </div>
@@ -113,7 +113,7 @@ const NFW_PRIVACY = () => {
               <li>
                 <p>
                   Supabase (cloud database in the Southeast Asia
-                  &quot;Singapore&quot; region with GDPR protections)
+                  &quot;Singapore&quot; region)
                 </p>
               </li>
               <li>
@@ -129,6 +129,66 @@ const NFW_PRIVACY = () => {
               </li>
               <li>
                 <p>We delete all data within 7 days of account deletion</p>
+              </li>
+            </ul>
+          </div>
+          <div
+            className="h-12 bg-neutral-900/30 -mx-16 my-4"
+            aria-hidden="true"
+          />
+          <div className="space-y-2 mb-4">
+            <h2 className="inline-block text-xl font-bold mb-4 border-b-1 pb-1">
+              User Payment Verification Information
+            </h2>
+            <br />
+            <strong className="text-lg ml-8">What we collect:</strong>
+            <ul className="list-disc ml-20 my-2">
+              <li>
+                <p>Email Address</p>
+              </li>
+              <li>
+                <p>Full Name</p>
+              </li>
+              <li>
+                <p>Phone Number (Optional)</p>
+              </li>
+              <li>
+                <p>Transaction Id / Reference Number</p>
+              </li>
+            </ul>
+            <strong className="text-lg ml-8">Why:</strong>
+            <ul className="list-disc ml-20 my-2">
+              <li>
+                <p>To cross verify users payment transactions</p>
+              </li>
+              <li>
+                <p>
+                  To provide premium features to corresponding user email
+                  address
+                </p>
+              </li>
+              <li>
+                <p>
+                  To ensure the security and integrity of our payment system
+                </p>
+              </li>
+            </ul>
+            <strong className="text-lg ml-8">Where it is stored:</strong>
+            <ul className="list-disc ml-20 my-2">
+              <li>
+                <p>
+                  Supabase (cloud database in the Southeast Asia
+                  &quot;Singapore&quot; region)
+                </p>
+              </li>
+            </ul>
+            <strong className="text-lg ml-8">How Long:</strong>
+            <ul className="list-disc ml-20 my-2">
+              <li>
+                <p>
+                  Indefinitely (until you specifically request for the deletion
+                  of your payment verification information)
+                </p>
               </li>
             </ul>
           </div>
@@ -566,7 +626,7 @@ const NFW_PRIVACY = () => {
                     <p>Stores your email, username, Pro status</p>
                   </li>
                   <li>
-                    <p>Signs a Data Processing Agreement (GDPR-compliant)</p>
+                    <p>Signs a Data Processing Agreement</p>
                   </li>
                   <li>
                     <p>
@@ -730,50 +790,6 @@ const NFW_PRIVACY = () => {
                 </li>
               </ul>
             </div>
-            <div
-              className="h-12 bg-neutral-900/30 -mx-16 my-4"
-              aria-hidden="true"
-            />
-            <h2 className="inline-block text-xl font-bold mb-4 border-b-1 pb-1">
-              Rights Under GDPR/CCPA
-            </h2>
-            <br />
-            <strong className="text-lg ml-4">
-              If you&apos;re in the EU or California:
-            </strong>
-            <div>
-              <ol className="list-disc ml-16 my-2">
-                <li>
-                  <p>
-                    <strong>Right to access: </strong> Export your data (see 1)
-                  </p>
-                </li>
-                <li>
-                  <p>
-                    <strong>Right to delete: </strong> Delete your account (see
-                    2)
-                  </p>
-                </li>
-                <li>
-                  <p>
-                    <strong>Right to portability:</strong> Export as JSON
-                  </p>
-                </li>
-                <li>
-                  <p>
-                    <strong>Right to object:</strong> Uninstall the extension
-                  </p>
-                </li>
-                <li>
-                  <p>
-                    <strong>Right to restrict:</strong> Turn off sync in Chrome
-                    settings
-                  </p>
-                </li>
-              </ol>
-            </div>
-            <br />
-            <p>To exercise these rights, contact us</p>
           </div>
         </div>
       </section>
@@ -979,9 +995,6 @@ const NFW_PRIVACY = () => {
           </h2>
           <br />
           <ul className="list-disc ml-16 my-2">
-            <li>
-              <p>EU General Data Protection Regulation (GDPR)</p>
-            </li>
             <li>
               <p>California Consumer Privacy Act (CCPA)</p>
             </li>
