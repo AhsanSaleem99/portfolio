@@ -859,7 +859,7 @@ const NFW_PRIVACY = () => {
                   30 days (auto-expire)
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  Browser Settings → Clear Browser Data → Clear cache & files
+                  Browser Settings → Clear cache & files
                 </td>
               </tr>
               <tr className="hover:bg-neutral-700 transition-colors">
