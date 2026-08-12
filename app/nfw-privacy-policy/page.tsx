@@ -630,7 +630,7 @@ const NFW_PRIVACY = () => {
                   </li>
                   <li>
                     <p>
-                      Based in Souteast Asia (Singapore) with SOC 2
+                      Based in Southeast Asia (Singapore) with SOC 2
                       certification
                     </p>
                   </li>
@@ -939,9 +939,7 @@ const NFW_PRIVACY = () => {
             </li>
           </ul>
           <br />
-          <strong className="text-lg ml-4">
-            Data Subject Requests (GDPR):{" "}
-          </strong>
+          <strong className="text-lg ml-4">Data Subject Requests: </strong>
           <ul className="list-disc ml-16 my-2">
             <li>
               <p>Email: admin@asaleem.com</p>
