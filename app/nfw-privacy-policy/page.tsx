@@ -559,7 +559,7 @@ const NFW_PRIVACY = () => {
                     Account management
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    Legitimate interest + User consent
+                    Provided voluntarily by user
                   </td>
                 </tr>
                 <tr className="hover:bg-neutral-700 transition-colors">
@@ -959,20 +959,6 @@ const NFW_PRIVACY = () => {
             </li>
           </ul>
           <br />
-          <strong className="text-lg ml-4">Data Subject Requests: </strong>
-          <ul className="list-disc ml-16 my-2">
-            <li>
-              <p>Email: admin@asaleem.com</p>
-            </li>
-            <li>
-              <p>
-                Include your email and request type (access, delete, port, etc.)
-              </p>
-            </li>
-            <li>
-              <p>We will respond within 30 days</p>
-            </li>
-          </ul>
         </div>
       </section>
       <hr className="w-full self-stretch border-t border-gray-300 my-8" />
@@ -1031,6 +1017,12 @@ const NFW_PRIVACY = () => {
             The use of information received from Google APIs will adhere to the
             Chrome Web Store User Data Policy, including the Limited Use
             requirements.
+          </p>
+          <br />
+          <p>
+            This policy is written for CCPA and UK DPA compliance. We do not
+            currently make specific representations regarding GDPR (EU)
+            compliance
           </p>
         </div>
       </section>
