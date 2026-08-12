@@ -570,7 +570,7 @@ const NFW_PRIVACY = () => {
                     Verify payment & activate Pro
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    Contract performance
+                    Needed to confirm your purchase and unlock Pro features
                   </td>
                 </tr>
                 <tr className="hover:bg-neutral-700 transition-colors">
@@ -579,21 +579,21 @@ const NFW_PRIVACY = () => {
                     Personalization
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    Legitimate interest
+                    Needed to apply and remember your preferences
                   </td>
                 </tr>
                 <tr className="hover:bg-neutral-700 transition-colors">
                   <td className="px-6 py-4 whitespace-nowrap">Screenshots</td>
                   <td className="px-6 py-4 whitespace-nowrap">User control</td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    Legitimate interest
+                    Provided voluntarily by you via the Snip tool
                   </td>
                 </tr>
                 <tr className="hover:bg-neutral-700 transition-colors">
                   <td className="px-6 py-4 whitespace-nowrap">Fonts</td>
                   <td className="px-6 py-4 whitespace-nowrap">Font delivery</td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    Legitimate interest
+                    Needed for core extension functionality
                   </td>
                 </tr>
                 <tr className="hover:bg-neutral-700 transition-colors">
@@ -601,7 +601,9 @@ const NFW_PRIVACY = () => {
                   <td className="px-6 py-4 whitespace-nowrap">
                     Audio generation
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap">User request</td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    Sent only when you request text-to-speech playback
+                  </td>
                 </tr>
                 <tr className="hover:bg-neutral-700 transition-colors">
                   <td className="px-6 py-4 whitespace-nowrap">
@@ -609,7 +611,8 @@ const NFW_PRIVACY = () => {
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">Bug fixes</td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    Legitimate interest
+                    Collected locally to help diagnose issues if you report a
+                    bug
                   </td>
                 </tr>
               </tbody>
