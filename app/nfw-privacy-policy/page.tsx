@@ -20,7 +20,7 @@ const NFW_PRIVACY = () => {
           <br />
           <strong>Last Updated:</strong> August 12, 2026
           <br />
-          <strong>Version:</strong> v7.6
+          <strong>Version:</strong> v7.7
         </div>
       </section>
       <hr className="w-full self-stretch border-t border-gray-300 my-8" />
