@@ -16,11 +16,11 @@ const NFW_PRIVACY = () => {
         </div>
         <hr className="w-full self-stretch border-t border-gray-300 my-8" />
         <div className="text-sm">
-          <strong>Effective Date:</strong> August 12, 2026
+          <strong>Effective Date:</strong> August 14, 2026
           <br />
-          <strong>Last Updated:</strong> August 12, 2026
+          <strong>Last Updated:</strong> August 14, 2026
           <br />
-          <strong>Version:</strong> v7.7
+          <strong>Version:</strong> v7.9
         </div>
       </section>
       <hr className="w-full self-stretch border-t border-gray-300 my-8" />
